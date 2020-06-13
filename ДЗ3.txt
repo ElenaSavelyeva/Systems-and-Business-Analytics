@@ -1,0 +1,36 @@
+1) В таблице user я бы добавила атрибут:
+login varchar(30) uniqueе 
+
+2) Табица like не связана, но это написано  в комментариях) 
+
+Таблиы:
+users - пользователи
+profiles - профиль
+messages - сообщения
+friend_requests - запрос на подписку
+communities - сообщества
+users_communities - сообщества пользователя
+media_types - тип медиафайлов
+media - медиа
+likes - лайки для: медиа
+photo_albums - фотоальбомы
+photos - фото
+
+3) Добавить таблицу для постов. Сделать индекс по дате создания.И сделать связь с таблицей photos.
+
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+id SERIAL PRIMARY KEY,
+photo_id BIGINT unsigned NOT NULL,
+comments VARCHAR(100),
+created_at DATETIME DEFAULT,
+updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ 
+INDEX (created_at),
+FOREIGN KEY (photo_id) REFERENCES photos(id)
+);
+
+4) В таблицу likes добавить атрибут для лайков постов
+    posts_id BIGINT UNSIGNED NOT NULL,
+И связь с таблицей постов:
+    , FOREIGN KEY (posts_id) REFERENCES posts(id)
